@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+@theme {
+    --color-primary-500: oklch(0.7 0.19 310);
+    --color-primary-600: oklch(0.6 0.20 310);
+    --color-primary-700: oklch(0.5 0.21 310);
+  }
+  
