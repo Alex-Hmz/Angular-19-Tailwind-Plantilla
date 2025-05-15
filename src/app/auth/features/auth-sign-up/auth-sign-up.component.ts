@@ -1,12 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms'; // Import FormBuilder
+import { AbstractControl, FormBuilder, FormControl, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms'; // Import FormBuilder
 import { AuthService } from '../data-access/auth.service';
 import { CommonModule } from '@angular/common';
 
 interface SignUpForm {
   email: FormControl<string | null>;
   password: FormControl<string | null>;
+  confirm_password: FormControl<string | null>;
+  terms: FormControl<boolean | null>;
 }
 
 @Component({
@@ -26,12 +28,20 @@ export class AuthSignUpComponent {
     password: this._formBuilder.control(null, [
       Validators.required, 
       Validators.minLength(8),
-      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/)]),    
-  })
+      Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/)]),
+    confirm_password: this._formBuilder.control(null, [Validators.required]),
+    terms: this._formBuilder.control(false, [Validators.requiredTrue])
+          
+  },
+
+  {
+    validators: this.passwordMatchValidator()
+  }
+)
 
   async onSubmit() {
     const { email, password } = this.form.value;
-    console.log('Form submitted:', { email, password });
+
     if (this.form.invalid) return;
 
     try{
@@ -56,11 +66,25 @@ export class AuthSignUpComponent {
 
   }
 
+  passwordMatchValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const password = control.get('password')?.value;
+    const confirm = control.get('confirm_password')?.value;
+
+    return password && confirm && password !== confirm
+      ? { passwordMismatch: true }
+      : null;
+  };
+}
+
   get email() {
     return this.form.get('email') as FormControl;
   }
 
   get password() {
     return this.form.get('password') as FormControl;
+  }
+  get confirm_password() {
+    return this.form.get('confirm_password') as FormControl;
   }
 }

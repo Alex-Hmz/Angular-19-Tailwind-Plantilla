@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, Validators, ReactiveFormsModule } from '@angu
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../data-access/auth.service';
 import { CommonModule } from '@angular/common';
-import { HttpErrorResponse } from '@angular/common/http';
 
 interface LoginForm {
   email: FormControl<string | null>;
@@ -43,13 +42,11 @@ export class AuthLogInComponent {
     if (this.form.invalid) return;
 
     try{
-      const {error, data} = await this._authService.logIn({
+      const {error} = await this._authService.logIn({
         email: email  ?? '',
         password: password ?? ''
       })
   
-      console.log('Auth response:', data);
-      
       if (error) {
         const loginError: LoginError = {
           code: error.status || 0,
