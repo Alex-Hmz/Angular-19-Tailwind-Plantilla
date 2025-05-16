@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../../auth/features/data-access/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { NotesService } from '../../data-access/notes.service';
 
 @Component({
   selector: 'app-note-list',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './note-list.component.html',
   styles: ``
 })
