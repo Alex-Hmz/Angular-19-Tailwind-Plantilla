@@ -13,12 +13,12 @@ export class AuthService {
     constructor() {
         // Obtener sesión actual al iniciar
         this._supabaseClient.auth.getSession().then(({ data }) => {
-        this._session.set(data.session ?? null);
+            this._session.set(data.session ?? null);
         });
 
         // Suscribirse a cambios en la sesión
         this._supabaseClient.auth.onAuthStateChange((_event, session) => {
-        this._session.set(session);
+            this._session.set(session);
         });
     }
 

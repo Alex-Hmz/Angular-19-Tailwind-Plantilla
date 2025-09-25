@@ -107,4 +107,11 @@ export class NotesService {
             })
             .eq('id', id);
     }
+
+    async deleteNote(id: string) {
+        return await this._supabaseClient
+            .from('notes')
+            .delete()
+            .eq('id', id);
+    }
 }

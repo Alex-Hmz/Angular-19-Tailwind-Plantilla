@@ -1,0 +1,29 @@
+<section class="bg-gray-50 dark:bg-gray-900">
+    <div class="flex justify-between items-center p-4">
+
+        <div class="max-h-none">
+            <a [routerLink]="['/']" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Go back</a>
+        </div>
+    </div>
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto max-w-md w-full md:h-screen lg:py-0">
+        <form class="w-full max-w-md mx-auto" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="mb-5">
+                <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Título</label>
+                <input formControlName="title" type="text" id="title" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-xs-light" placeholder="" />
+            </div>
+            <div class="mb-5">
+                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripción</label>
+                <input formControlName="description" type="text" id="description" class="shadow-xs bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-xs-light" />
+            </div>
+
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Guardar</button>
+            <div
+                *ngIf="messageAlert"
+                class="mt-4 mx-auto w-fit px-4 py-2 text-sm text-red-800 rounded-lg bg-red-100 dark:bg-red-200 dark:text-red-900 text-center font-medium shadow-sm"
+                role="alert">
+                Error: {{ messageAlert }}
+            </div>
+        </form>
+    </div>
+</section>
+

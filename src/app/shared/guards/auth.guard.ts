@@ -12,10 +12,9 @@ export const privateGuard:CanActivateFn = async() => {
     const data = authService.session();
     if(!data){
         router.navigate(['/auth/log-in']);
-        return false;
     }
     
-    return true;
+    return !!data;
 };
 
 export const publicGuard = async () => {
@@ -25,8 +24,6 @@ export const publicGuard = async () => {
     const data = authService.session();
     if(data){
         router.navigate(['/']);
-        return false;
     }
-    
-    return true;
+    return !data;
 };

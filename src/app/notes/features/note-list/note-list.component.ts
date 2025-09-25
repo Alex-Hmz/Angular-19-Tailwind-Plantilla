@@ -11,17 +11,17 @@ import { NotesService } from '../../data-access/notes.service';
 })
 export class NoteListComponent {
   
-  private _authService = inject(AuthService);
-  private _router = inject(Router);
   noteService = inject(NotesService);
 
-  async logOut() {
-    await this._authService.signOut().then(() => {
-      this._router.navigateByUrl('/auth/log-in');
-    }); 
-  }
   ngAfterViewInit() {
     this.noteService.getAllNotes();
+  }
+
+  deleteNote(id: string) {
+    this.noteService.deleteNote(id).then((response) => {
+      console.log('Delete response:', response);
+      this.noteService.getAllNotes();
+    });
   }
 }
 
